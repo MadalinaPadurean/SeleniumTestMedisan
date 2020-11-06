@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class LoginTest {
@@ -98,7 +98,7 @@ public class LoginTest {
         String error_message = errorMessageContainer.getText();
 
         assertThat("The error message 'Invalid  login or password.' does not appear on the page!",error_message,
-                containsString("Invalid login or password."));
+                is("Invalid login or password."));
 
         Thread.sleep(2500);
 
@@ -107,6 +107,7 @@ public class LoginTest {
     }
     @Test
     public void logoutFromAnExistingAccount () throws InterruptedException {
+        System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("https://fasttrackit.org/selenium-test/");
         System.out.println("Opened homepage.");
@@ -115,12 +116,12 @@ public class LoginTest {
         WebElement loginLink = driver.findElement(By.xpath("//div[@class='links']//a[@title='Log In']"));
         loginLink.click();
         WebElement email = driver.findElement(By.id("email"));
-        email.sendKeys("madapadurean@yahoo.com");
+        email.sendKeys("madapadurean11@yahoo.com");
         Thread.sleep(1000);
 
 
         WebElement password = driver.findElement(By.id("pass"));
-        password.sendKeys("madalina");
+        password.sendKeys("123456");
         Thread.sleep(2000);
 
         WebElement loginButton = driver.findElement(By.xpath("//span[text() ='Login']"));
@@ -139,10 +140,6 @@ public class LoginTest {
                 logout_confirmation_message,containsString("logged out"));
 
         Thread.sleep(5000);
-
-        String homepage =driver.getCurrentUrl();
-
-
         driver.quit();
     }
     }
